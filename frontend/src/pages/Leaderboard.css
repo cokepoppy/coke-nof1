@@ -1,0 +1,246 @@
+.leaderboard-page {
+  padding: 16px 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: 'Courier New', monospace;
+}
+
+.leaderboard-header {
+  margin-bottom: 24px;
+}
+
+.leaderboard-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+
+.leaderboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-item {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 0;
+  padding: 16px;
+}
+
+.stat-label {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.leaderboard-table-container {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 0;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', monospace;
+}
+
+.leaderboard-table thead {
+  background-color: var(--bg-tertiary);
+}
+
+.leaderboard-table th {
+  padding: 12px;
+  text-align: left;
+  font-size: 9px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.leaderboard-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.leaderboard-table th.sortable:hover {
+  color: var(--primary-color);
+}
+
+.leaderboard-table th.sortable.active {
+  color: var(--primary-color);
+}
+
+.leaderboard-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.leaderboard-table tbody tr {
+  transition: background-color 0.15s;
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.leaderboard-table tbody tr.top-performer {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.rank-col {
+  width: 80px;
+}
+
+.model-col {
+  width: 200px;
+}
+
+.provider-col {
+  width: 120px;
+}
+
+.balance-col {
+  width: 140px;
+}
+
+.rank-cell {
+  text-align: center;
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 0;
+  border: 2px solid var(--border-color);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Courier New', monospace;
+  background-color: var(--bg-tertiary);
+}
+
+.rank-badge.top3 {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+  font-size: 18px;
+}
+
+.model-cell strong {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+}
+
+.provider-cell {
+  color: var(--text-tertiary);
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+}
+
+.balance-cell {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 0;
+  border: 1px solid currentColor;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Courier New', monospace;
+}
+
+.status-badge.active {
+  background-color: transparent;
+  color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.status-badge.paused {
+  background-color: transparent;
+  color: var(--warning-color);
+  border-color: var(--warning-color);
+}
+
+.status-badge.stopped {
+  background-color: transparent;
+  color: var(--text-tertiary);
+  border-color: var(--text-tertiary);
+}
+
+.leaderboard-footer {
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .leaderboard-table {
+    font-size: 12px;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 12px 8px;
+  }
+
+  .rank-badge {
+    min-width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .rank-badge.top3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .leaderboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .leaderboard-table-container {
+    overflow-x: auto;
+  }
+
+  .leaderboard-table {
+    min-width: 800px;
+  }
+}
