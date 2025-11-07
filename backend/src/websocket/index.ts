@@ -1,6 +1,7 @@
 import { Server } from 'socket.io';
 import { Server as HTTPServer } from 'http';
 import { logger } from '../utils/logger';
+import coinGeckoService from '../services/coinGeckoService';
 
 let io: Server;
 
@@ -12,6 +13,14 @@ export function initializeWebSocket(server: HTTPServer) {
     },
   });
 
+  // Listen to market data updates from CoinGecko
+  coinGeckoService.on('priceUpdate', (priceData) => {
+    if (io) {
+      io.to('prices').emit('price:update', priceData);
+      logger.debug(`Price update emitted: ${priceData.symbol} = $${priceData.price}`);
+    }
+  });
+
   io.on('connection', (socket) => {
     logger.info(`WebSocket client connected: ${socket.id}`);
 
@@ -20,6 +29,10 @@ export function initializeWebSocket(server: HTTPServer) {
     socket.on('subscribe:prices', () => {
       socket.join('prices');
       logger.info(`Client ${socket.id} subscribed to prices`);
+
+      // Send current prices immediately upon subscription
+      const allPrices = coinGeckoService.getAllPrices();
+      socket.emit('price:initial', allPrices);
     });
 
     socket.on('unsubscribe:prices', () => {

@@ -4,18 +4,21 @@ An AI trading competition platform where large language models (LLMs) trade cryp
 
 ## Overview
 
-NOF1.AI is a platform that enables multiple AI models (GPT-5, Claude Sonnet 4.5, Gemini 2.5 Pro, Grok 4, DeepSeek v3.1, Qwen3-Max) to compete against each other by trading cryptocurrency derivatives on Hyperliquid decentralized exchange.
+NOF1.AI is a platform that enables multiple AI models (GPT-4 Turbo, Claude 3.5 Sonnet, Gemini Pro 1.5, DeepSeek, Qwen, etc.) to compete against each other by trading cryptocurrency derivatives autonomously. The platform uses OpenRouter API for unified access to various LLM providers and supports real-time market data via CoinGecko.
 
 ![Demo Screenshot](./doc/images/demo.png)
 
 ### Key Features
 
-- **Real-time AI Trading**: AI models make autonomous trading decisions every 2-3 minutes
-- **Zero-shot Learning**: Models use only prompt engineering, no fine-tuning
-- **Multiple LLMs**: Support for OpenAI, Anthropic, Google, xAI, DeepSeek, and Alibaba models
-- **Live Dashboard**: Real-time visualization of trades, positions, and performance
-- **Leaderboard**: Rankings based on PnL, Sharpe ratio, and other metrics
-- **Risk Management**: Built-in position sizing, leverage control, and stop-loss mechanisms
+- **🤖 AI-Powered Trading**: AI models make autonomous trading decisions at configurable intervals
+- **🔄 OpenRouter Integration**: Unified API access to multiple LLM providers (OpenAI, Anthropic, Google, DeepSeek, Qwen, etc.)
+- **⏱️ Configurable Frequency**: Trade from minutes to days - fully configurable
+- **📊 Real-time Market Data**: Live cryptocurrency prices via CoinGecko API (BTC, ETH, SOL, BNB, DOGE, XRP)
+- **📈 Live Dashboard**: Real-time visualization of trades, positions, and performance
+- **🏆 Leaderboard**: Rankings based on PnL, Sharpe ratio, and other metrics
+- **⚠️ Risk Management**: Built-in position sizing, leverage control, stop-loss/take-profit automation
+- **🎯 Zero-shot Learning**: Models use prompt engineering only, no fine-tuning required
+- **💰 Simulated Trading**: Test strategies safely before deploying real capital
 
 ## Tech Stack
 
@@ -108,8 +111,11 @@ nof1-ai/
 
 ## Documentation
 
+- **[AI自动交易配置指南](./doc/AI自动交易配置指南.md)** - ⭐ Complete guide for AI automated trading setup
 - [调研报告](./doc/调研报告.md) - Research report and analysis
 - [设计方案](./doc/设计方案.md) - System design and architecture
+- [实时行情快速开始](./doc/实时行情-快速开始.md) - Real-time market data setup (CoinGecko)
+- [实时行情配置](./doc/实时行情配置.md) - Detailed configuration guide
 
 ## API Documentation
 
@@ -129,13 +135,42 @@ Edit `.env` to configure trading parameters:
 
 ### LLM Configuration
 
-Add your LLM API keys in `.env`:
+**Option 1: OpenRouter (Recommended)**
+Add your OpenRouter API key in `.env` for unified access to all models:
+```bash
+OPENROUTER_API_KEY=sk-or-v1-your-key-here
+```
+
+**Option 2: Individual Provider Keys**
+Alternatively, add individual API keys:
 - `OPENAI_API_KEY`
 - `ANTHROPIC_API_KEY`
 - `GOOGLE_AI_API_KEY`
 - `XAI_API_KEY`
 - `DEEPSEEK_API_KEY`
 - `QWEN_API_KEY`
+
+### AI Trading Configuration
+
+```bash
+# Enable AI automated trading
+ENABLE_AI_TRADING=true
+
+# Trading frequency (default: 1 day)
+TRADING_INTERVAL_MS=86400000  # milliseconds
+# Examples:
+# 3 minutes = 180000
+# 1 hour = 3600000
+# 1 day = 86400000
+
+# Risk settings
+MAX_LEVERAGE=20
+MAX_POSITION_RISK=0.03
+
+# Network proxy (optional, for China users)
+HTTP_PROXY=http://172.25.64.1:7890
+HTTPS_PROXY=http://172.25.64.1:7890
+```
 
 ## Development Roadmap
 

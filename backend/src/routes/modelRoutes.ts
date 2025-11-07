@@ -1,26 +1,97 @@
 import { Router } from 'express';
+import { AppDataSource } from '../config/database';
+import { AIModel } from '../models/AIModel';
 
 const router = Router();
 
-// TODO: Implement model routes
-router.get('/', (req, res) => {
-  res.json({ message: 'Get all models endpoint - coming soon' });
+// Get all models
+router.get('/', async (req, res) => {
+  try {
+    const modelRepository = AppDataSource.getRepository(AIModel);
+    const models = await modelRepository.find({
+      order: { id: 'ASC' },
+    });
+
+    res.json(models);
+  } catch (error) {
+    console.error('Error fetching models:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch models' });
+  }
 });
 
-router.get('/:id', (req, res) => {
-  res.json({ message: 'Get model details endpoint - coming soon' });
+// Get model by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const modelRepository = AppDataSource.getRepository(AIModel);
+    const model = await modelRepository.findOne({
+      where: { id: Number(id) },
+      relations: ['trades', 'positions'],
+    });
+
+    if (!model) {
+      return res.status(404).json({ success: false, message: 'Model not found' });
+    }
+
+    res.json(model);
+  } catch (error) {
+    console.error('Error fetching model:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch model' });
+  }
 });
 
-router.post('/', (req, res) => {
-  res.json({ message: 'Create model endpoint - coming soon' });
+// Create new model
+router.post('/', async (req, res) => {
+  try {
+    const modelRepository = AppDataSource.getRepository(AIModel);
+    const newModel = modelRepository.create(req.body);
+    const savedModel = await modelRepository.save(newModel);
+
+    res.status(201).json(savedModel);
+  } catch (error) {
+    console.error('Error creating model:', error);
+    res.status(500).json({ success: false, message: 'Failed to create model' });
+  }
 });
 
-router.put('/:id', (req, res) => {
-  res.json({ message: 'Update model endpoint - coming soon' });
+// Update model
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const modelRepository = AppDataSource.getRepository(AIModel);
+
+    const model = await modelRepository.findOne({ where: { id: Number(id) } });
+    if (!model) {
+      return res.status(404).json({ success: false, message: 'Model not found' });
+    }
+
+    modelRepository.merge(model, req.body);
+    const updatedModel = await modelRepository.save(model);
+
+    res.json(updatedModel);
+  } catch (error) {
+    console.error('Error updating model:', error);
+    res.status(500).json({ success: false, message: 'Failed to update model' });
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  res.json({ message: 'Delete model endpoint - coming soon' });
+// Delete model
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const modelRepository = AppDataSource.getRepository(AIModel);
+
+    const model = await modelRepository.findOne({ where: { id: Number(id) } });
+    if (!model) {
+      return res.status(404).json({ success: false, message: 'Model not found' });
+    }
+
+    await modelRepository.remove(model);
+    res.json({ success: true, message: 'Model deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting model:', error);
+    res.status(500).json({ success: false, message: 'Failed to delete model' });
+  }
 });
 
 export default router;
