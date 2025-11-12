@@ -129,7 +129,7 @@ class AITradingService {
         decisionType: decision.signal === 'buy_to_enter' ? 'LONG' :
                      decision.signal === 'sell_to_enter' ? 'SHORT' :
                      decision.signal === 'close' ? 'CLOSE' : 'HOLD',
-        symbol: decision.coin || null,
+        symbol: decision.coin || undefined,
         reasoning: decision.justification || 'No reasoning provided',
         marketContext: {
           prices: accountData.positions.map(p => ({ symbol: p.symbol, price: p.currentPrice })),
@@ -152,7 +152,7 @@ class AITradingService {
       await this.decisionLogRepository.save(decisionLog);
 
       // Update model's current balance in database
-      model.currentBalance = accountData.currentBalance.toString();
+      model.currentBalance = accountData.currentBalance;
       await this.modelRepository.save(model);
 
       // Emit update via WebSocket

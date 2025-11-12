@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
       realized_pnl: trade.profitLoss ? Number(trade.profitLoss) : null,
       status: trade.status.toUpperCase(),
       stop_loss: trade.stopLoss ? Number(trade.stopLoss) : null,
-      take_profit: trade.takeProfit ? Number(trade.takeProfit) : null,
+      take_profit: trade.profitTarget ? Number(trade.profitTarget) : null,
     }));
 
     res.json(formattedTrades);
@@ -78,7 +78,7 @@ router.get('/model/:modelId', async (req, res) => {
       realized_pnl: trade.profitLoss ? Number(trade.profitLoss) : null,
       status: trade.status.toUpperCase(),
       stop_loss: trade.stopLoss ? Number(trade.stopLoss) : null,
-      take_profit: trade.takeProfit ? Number(trade.takeProfit) : null,
+      take_profit: trade.profitTarget ? Number(trade.profitTarget) : null,
     }));
 
     res.json(formattedTrades);
@@ -113,7 +113,7 @@ router.get('/:id', async (req, res) => {
       realized_pnl: trade.profitLoss ? Number(trade.profitLoss) : null,
       status: trade.status.toUpperCase(),
       stop_loss: trade.stopLoss ? Number(trade.stopLoss) : null,
-      take_profit: trade.takeProfit ? Number(trade.takeProfit) : null,
+      take_profit: trade.profitTarget ? Number(trade.profitTarget) : null,
     };
 
     res.json(formattedTrade);

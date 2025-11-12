@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
       unrealized_pnl: position.unrealizedPnl ? Number(position.unrealizedPnl) : 0,
       liquidation_price: position.liquidationPrice ? Number(position.liquidationPrice) : null,
       stop_loss: position.stopLoss ? Number(position.stopLoss) : null,
-      take_profit: position.takeProfit ? Number(position.takeProfit) : null,
+      take_profit: position.profitTarget ? Number(position.profitTarget) : null,
       opened_at: position.openedAt,
     }));
 
@@ -67,7 +67,7 @@ router.get('/model/:modelId', async (req, res) => {
       unrealized_pnl: position.unrealizedPnl ? Number(position.unrealizedPnl) : 0,
       liquidation_price: position.liquidationPrice ? Number(position.liquidationPrice) : null,
       stop_loss: position.stopLoss ? Number(position.stopLoss) : null,
-      take_profit: position.takeProfit ? Number(position.takeProfit) : null,
+      take_profit: position.profitTarget ? Number(position.profitTarget) : null,
       opened_at: position.openedAt,
     }));
 
@@ -101,7 +101,7 @@ router.get('/:id', async (req, res) => {
       unrealized_pnl: position.unrealizedPnl ? Number(position.unrealizedPnl) : 0,
       liquidation_price: position.liquidationPrice ? Number(position.liquidationPrice) : null,
       stop_loss: position.stopLoss ? Number(position.stopLoss) : null,
-      take_profit: position.takeProfit ? Number(position.takeProfit) : null,
+      take_profit: position.profitTarget ? Number(position.profitTarget) : null,
       opened_at: position.openedAt,
     };
 
